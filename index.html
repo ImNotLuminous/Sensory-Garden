@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensory Garden Project | Tech Healthcare</title>
+    <style>
+        /* Global Styles & Variables */
+        :root {
+            --primary-green: #4CAF50;
+            --dark-green: #2E7D32;
+            --soft-sage: #E8F5E9;
+            --text-dark: #333333;
+            --light-bg: #F9FBF9;
+            --white: #ffffff;
+            --canva-teal: #00C4CC;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--dark-green);
+            text-decoration: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            margin-left: 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(46, 125, 50, 0.8), rgba(76, 175, 80, 0.6)), 
+                        url('https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1920&q=80') center/cover;
+            color: var(--white);
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Section Styling */
+        section {
+            margin-bottom: 60px;
+        }
+
+        h2 {
+            color: var(--dark-green);
+            border-bottom: 3px solid var(--primary-green);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        /* Card Styling */
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--primary-green);
+            text-align: left;
+        }
+
+        /* Badges */
+        .badge {
+            background-color: var(--soft-sage);
+            color: var(--dark-green);
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        /* Buttons & Lists */
+        .btn-link {
+            display: inline-block;
+            background-color: var(--dark-green);
+            color: var(--white);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background 0.2s;
+        }
+
+        .btn-link:hover {
+            background-color: var(--primary-green);
+        }
+
+        .assignment-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .assignment-list li {
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--soft-sage);
+            padding: 10px 15px;
+            border-radius: 6px;
+        }
+
+        /* Plant Profile Specific Screen Wrapper */
+        #plant-profile-view {
+            min-height: 100vh;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        /* Frosted Glass Floating Card for Plant Profile */
+        .plant-page {
+            max-width: 600px;
+            margin: 60px auto;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            text-align: center;
+            border-top: 6px solid var(--primary-green);
+        }
+
+        .plant-page h1 {
+            color: var(--dark-green);
+            margin-bottom: 5px;
+            font-size: 36px;
+        }
+
+        .sci-title {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 20px;
+            display: block;
+            font-weight: 500;
+        }
+
+        .btn-large {
+            display: inline-block;
+            background-color: var(--canva-teal);
+            color: white;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-large:hover {
+            transform: translateY(-2px);
+            background-color: #00A3AA;
+        }
+
+        footer {
+            background-color: var(--dark-green);
+            color: var(--white);
+            text-align: center;
+            padding: 30px;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main-hub-view">
+        <header>
+            <div class="nav-container">
+                <a href="#" class="logo">🌿 Sensory Garden Hub</a>
+                <nav>
+                    <a href="#plants">Plant Directory</a>
+                    <a href="#activities">Activities</a>
+                    <a href="#about">About Project</a>
+                </nav>
+            </div>
+        </header>
+
+        <section class="hero">
+            <h1>Sensory Garden Scanner Hub</h1>
+            <p>Explore healthcare research and mental health applications compiled by our past and present student cohorts.</p>
+        </section>
+
+        <div class="container">
+            <section id="plants">
+                <h2>Garden Plant Directory</h2>
+                <p style="margin-bottom: 20px;">Select a plant below to view its specific background summary and full student design research.</p>
+                <div class="grid">
+                    
+                    <div class="card">
+                        <span class="badge">Visual & Tactile Zone</span>
+                        <h3>Pearly Everlasting</h3>
+                        <p><strong>Student:</strong> Aishwarya</p>
+                        <a href="?plant=pearlyeverlasting" class="btn-link">View Plant Profile →</a>
+                    </div>
+
+                    <div class="card">
+                        <span class="badge">Calming Zone</span>
+                        <h3>Blue Vervain</h3>
+                        <p><strong>Student:</strong> Chloe</p>
+                        <a href="?plant=bluevervain" class="btn-link">View Plant Profile →</a>
+                    </div>
+
+                    <div class="card">
+                        <span class="badge">Sensory Zone</span>
+                        <h3>Wild Concubine</h3>
+                        <p><strong>Student:</strong> Jennifer</p>
+                        <a href="?plant=wildconcubine" class="btn-link">View Plant Profile →</a>
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="activities">
+                <h2>Activities & Class Contributions</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>Last Semester's Blueprints</h3>
+                        <p>Initial design layouts and structural zoning plans for our garden retreat space.</p>
+                        <ul class="assignment-list">
+                            <li>
+                                <span>Garden Space Layout Concept</span>
+                                <a href="#" class="btn-link" style="margin:0">View Blueprint</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>This Semester's Hub Elements</h3>
+                        <p>Interactive programming elements and custom game logic configurations built for lunch breaks.</p>
+                        <ul class="assignment-list">
+                            <li>
+                                <span>Lunch Break Game Logic & UI</span>
+                                <a href="#" class="btn-link" style="margin:0">View System</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about">
+                <h2>About Our Sensory Garden</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>🧠 Mental Health & Community Hub</h3>
+                        <p>This garden is a collaborative space built to bridge technology and healthcare. Designed as an active retreat during lunch breaks, it connects different semester cohorts through interactive tech elements, calming botanical spaces, and communal mental health activities.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+    <div id="plant-profile-view" style="display: none;">
+        <header style="background: rgba(255,255,255,0.95)">
+            <div class="nav-container">
+                <a href="?" class="logo">🌿 Back to Hub Home</a>
+            </div>
+        </header>
+        
+        <div class="container" style="padding-top: 20px;">
+            <div class="plant-page">
+                <span class="badge" id="dynamic-zone">Sensory Zone</span>
+                <h1 id="dynamic-name">Plant Name</h1>
+                <span class="sci-title" id="dynamic-sci">Scientific Name</span>
+                
+                <p id="dynamic-description" style="font-size: 17px; color: #333; margin-bottom: 20px;">Plant Description goes here...</p>
+                <p><strong id="dynamic-researcher">Student Researcher: Name</strong></p>
+                
+                <a href="#" id="dynamic-canva-btn" target="_blank" class="btn-large">Open Canva Presentation ↗</a>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <p>© 2026 Tech Healthcare Class | Cultivating Community & Mental Well-being</p>
+    </footer>
+
+
+    <script>
+        // Local plant dataset matching descriptions, canvas links, and specific background images
+        const database = {
+            pearlyeverlasting: {
+                name: "Pearly Everlasting",
+                sci: "Anaphalis margaritacea",
+                zone: "Visual & Tactile Zone",
+                researcher: "Aishwarya",
+                desc: "Welcome to the Pearly Everlasting station! This plant features unique, straw-like white flowers with yellow centers and soft, woolly foliage. In healthcare and sensory therapy, its distinct tactile texture provides an excellent grounding mechanism for individuals managing anxiety or sensory overload.",
+                link: "https://canva.link/qh90icfcdbr686e",
+                bgImage: "url('http://googleusercontent.com/image_collection/image_retrieval/17829605282618675622_0')"
+            },
+            bluevervain: {
+                name: "Blue Vervain",
+                sci: "Verbena hastata",
+                zone: "Calming Zone",
+                researcher: "Chloe",
+                desc: "Welcome to the Blue Vervain station! Known for its tall, elegant spikes of purplish-blue flowers, this plant has a rich history in traditional herbal wellness. It is frequently studied for its neurological calming properties, helping to lower stress metrics and support nervous system equilibrium.",
+                link: "https://canva.link/gxwzayegg5m6dtw",
+                bgImage: "url('http://googleusercontent.com/image_collection/image_retrieval/6897323550900831352_0')"
+            },
+            wildconcubine: {
+                name: "Wild Concubine",
+                sci: "Subspecies Profile",
+                zone: "Sensory Zone",
+                researcher: "Jennifer",
+                desc: "Welcome to the Wild Concubine station! This botanical feature is integrated into our tech-healthcare project to highlight biodiversity and sensory cultivation. Scan below to explore its specific healthcare markers, environmental preferences, and holistic properties.",
+                link: "https://www.canva.com/design/DAHK5N",
+                bgImage: "url('http://googleusercontent.com/image_collection/image_retrieval/9243842306868003203_0')"
+            }
+        };
+
+        // Parse query string parameters from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const plantKey = urlParams.get('plant');
+
+        // Router toggle logic
+        if (plantKey && database[plantKey]) {
+            // Hide standard homepage view block
+            document.getElementById('main-hub-view').style.display = 'none';
+            
+            // Access plant specific data block
+            const plantData = database[plantKey];
+            const profileView = document.getElementById('plant-profile-view');
+            
+            // Inject the specific plant background image dynamically!
+            profileView.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), ${plantData.bgImage}`;
+            profileView.style.display = 'block';
+            
+            // Populate target dataset fields
+            document.getElementById('dynamic-name').innerText = plantData.name;
+            document.getElementById('dynamic-sci').innerText = plantData.sci;
+            document.getElementById('dynamic-zone').innerText = plantData.zone;
+            document.getElementById('dynamic-researcher').innerText = "Student Researcher: " + plantData.researcher;
+            document.getElementById('dynamic-description').innerText = plantData.desc;
+            document.getElementById('dynamic-canva-btn').href = plantData.link;
+        }
+    </script>
+</body>
+</html>
