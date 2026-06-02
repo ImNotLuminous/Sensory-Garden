@@ -83,30 +83,8 @@
         .hero p {
             font-size: 19px;
             max-width: 760px;
-            margin: 0 auto 25px auto;
-            opacity: 0.92;
-        }
-
-        /* Search Bar Styles */
-        .search-container {
-            max-width: 500px;
             margin: 0 auto;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 14px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 30px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-            outline: none;
-            transition: box-shadow 0.2s;
-        }
-
-        .search-input:focus {
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            opacity: 0.92;
         }
 
         .container {
@@ -357,6 +335,7 @@
 </head>
 <body>
 
+<!-- ========== MAIN HUB VIEW ========== -->
 <div id="main-hub-view">
     <header>
         <div class="nav-container">
@@ -371,30 +350,23 @@
     <section class="hero">
         <h1>Sensory Garden Scanner Hub</h1>
         <p>Explore healthcare research and mental health applications compiled by our student cohort.</p>
-        
-        <div class="search-container">
-            <input type="text" id="garden-search" class="search-input" placeholder="Search plant name or student name...">
-        </div>
     </section>
 
     <div class="container">
 
-        <section id="search-results-section" style="display: none;">
-            <h2>Search Results</h2>
-            <div class="grid" id="search-grid">
-                </div>
-        </section>
-
-        <section id="plants-preview-section">
+        <!-- PLANT DIRECTORY (preview — 3 cards) -->
+        <section id="plants">
             <h2>Garden Plant Directory</h2>
             <p style="margin-bottom: 24px; color: #555;">Select a plant to view its background summary and full student design research.</p>
             <div class="grid" id="preview-grid">
-                </div>
+                <!-- Filled by JS -->
+            </div>
             <div class="see-more-wrap">
                 <a href="?view=all-plants" class="btn-see-more">See All Plants →</a>
             </div>
         </section>
 
+        <!-- ABOUT -->
         <section id="about">
             <h2>About Our Sensory Garden</h2>
             <div class="about-card">
@@ -405,6 +377,7 @@
             </div>
         </section>
 
+        <!-- CREDITS -->
         <section id="credits">
             <h2>Credits</h2>
             <div class="credits-grid">
@@ -460,19 +433,37 @@
                     <div class="credit-role">🌿 Plant Researcher</div>
                     <div class="credit-name">Joshua</div>
                 </div>
+                <div class="credit-card">
+                    <div class="credit-role">🌿 Plant Researcher</div>
+                    <div class="credit-name">Kingsley</div>
+                </div>
+                <div class="credit-card">
+                    <div class="credit-role">🌿 Plant Researcher</div>
+                    <div class="credit-name">Jason Su</div>
+                </div>
+                <div class="credit-card">
+                    <div class="credit-role">🌿 Plant Researcher</div>
+                    <div class="credit-name">Hamza</div>
+                </div>
+                <div class="credit-card">
+                    <div class="credit-role">🌿 Plant Researcher</div>
+                    <div class="credit-name">Vinson</div>
+                </div>
+                <div class="credit-card">
+                    <div class="credit-role">🌿 Plant Researcher</div>
+                    <div class="credit-name">Albert</div>
+                </div>
             </div>
         </section>
 
     </div>
 </div>
 
+<!-- ========== FULL DIRECTORY VIEW ========== -->
 <div id="full-directory-view">
     <header>
         <div class="nav-container">
             <a href="?" class="logo">🌿 Back to Hub Home</a>
-            <div class="search-container" style="max-width: 350px;">
-                <input type="text" id="directory-search" class="search-input" style="padding: 10px 18px; font-size: 14px;" placeholder="Search this directory...">
-            </div>
         </div>
     </header>
     <div class="container">
@@ -480,11 +471,13 @@
             <h2>Full Plant Directory</h2>
             <p style="margin-bottom: 24px; color: #555;">All student plant profiles for the Sensory Garden.</p>
             <div class="grid" id="full-grid">
-                </div>
+                <!-- Filled by JS -->
+            </div>
         </section>
     </div>
 </div>
 
+<!-- ========== PLANT PROFILE VIEW ========== -->
 <div id="plant-profile-view" style="display: none;">
     <header style="background: rgba(255,255,255,0.96);">
         <div class="nav-container">
@@ -527,12 +520,12 @@
             link: "https://canva.link/gxwzayegg5m6dtw",
             bgImage: "url('https://images.unsplash.com/photo-1499002238440-d264edd596ec?auto=format&fit=crop&w=1920&q=80')"
         },
-        wildconcubine: {
-            name: "Wild Concubine",
+        wildcolumbine: {
+            name: "Wild Columbine",
             sci: "Subspecies Profile",
             tag: "Sensory Plant",
             researcher: "Jennifer",
-            desc: "Welcome to the Wild Concubine station! This botanical feature is integrated into our tech-healthcare project to highlight biodiversity and sensory cultivation. Scan below to explore its specific healthcare markers, environmental preferences, and holistic properties.",
+            desc: "Welcome to the Wild Columbine station! This botanical feature is integrated into our tech-healthcare project to highlight biodiversity and sensory cultivation. Scan below to explore its specific healthcare markers, environmental preferences, and holistic properties.",
             link: "https://www.canva.com/design/DAHK5N",
             bgImage: "url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1920&q=80')"
         },
@@ -616,6 +609,51 @@
             desc: "Welcome to the Black Chokeberry station! This hardy native shrub produces clusters of deep, dark berries and puts on a stunning show across all four seasons — white spring blossoms, lush summer foliage, bold autumn reds, and persistent winter berries. Its multi-season visual interest makes it a valuable addition to any sensory garden, and its antioxidant-rich berries connect users to themes of natural nourishment and ecological resilience.",
             link: "https://www.canva.com/design/DAHLbJx6xYY/Bp_PqM4v6ZUP2OsUpqkYTQ/view",
             bgImage: "url('https://images.unsplash.com/photo-1606170033648-5d55a3edf314?auto=format&fit=crop&w=1920&q=80')"
+        },
+        butterflymilkweed: {
+            name: "Butterfly Milkweed",
+            sci: "Asclepias tuberosa",
+            tag: "Vibrant Orange",
+            researcher: "Kingsley",
+            desc: "Welcome to the Butterfly Milkweed station! One of the most visually striking native wildflowers, this plant bursts into vivid orange clusters that attract monarch butterflies and other pollinators throughout summer. Its bold colour is studied in colour therapy for its energising and uplifting effects, making it a natural mood-booster in any sensory garden.",
+            link: "https://canva.link/dtslh1bsc9nb437",
+            bgImage: "url('https://images.unsplash.com/photo-1444021465936-c6ca81d39b84?auto=format&fit=crop&w=1920&q=80')"
+        },
+        smallpussytoes: {
+            name: "Small Pussytoes",
+            sci: "Antennaria parvifolia",
+            tag: "Soft & Fuzzy",
+            researcher: "Jason Su",
+            desc: "Welcome to the Small Pussytoes station! Named for their soft, paw-like flower clusters, this low-growing native groundcover is one of the most tactilely satisfying plants in the garden. Its velvety texture invites touch and slows the visitor down, making it a natural mindfulness anchor. In sensory therapy, gentle tactile engagement like this is used to reduce stress and bring awareness back to the present moment.",
+            link: "https://canva.link/xe14txo4ac3x6f7",
+            bgImage: "url('https://images.unsplash.com/photo-1490750967868-88df5691cc31?auto=format&fit=crop&w=1920&q=80')"
+        },
+        wildbergamot: {
+            name: "Wild Bergamot",
+            sci: "Monarda fistulosa",
+            tag: "Aromatic Bloom",
+            researcher: "Hamza",
+            desc: "Welcome to the Wild Bergamot station! This fragrant native wildflower produces lavender-pink blooms with a distinctive oregano-like scent that fills the air around it. Historically used in Indigenous herbal medicine, it is studied today for its calming aromatic properties. In sensory garden design, strong pleasant scents like Wild Bergamot are used to trigger positive emotional responses and reduce perceived stress levels.",
+            link: "https://canva.link/u1jhgldw0cw6yr4",
+            bgImage: "url('https://images.unsplash.com/photo-1468327768560-75b778cbb551?auto=format&fit=crop&w=1920&q=80')"
+        },
+        canadawildrye: {
+            name: "Canada Wild Rye",
+            sci: "Elymus canadensis",
+            tag: "Flowing Grass",
+            researcher: "Vinson",
+            desc: "Welcome to the Canada Wild Rye station! This graceful native grass produces long, arching seed heads that sway gently in the breeze, creating a soft, rhythmic movement that is deeply calming to observe. In sensory garden therapy, moving plants like grasses are used to engage the visual sense without overstimulation, providing a meditative focal point for visitors experiencing stress or anxiety.",
+            link: "https://www.canva.com/design/DAHLb-Lx9PA/dE0sz5WmTi6Lunu3WVZl5A/edit?ui=eyJBIjp7fX0",
+            bgImage: "url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1920&q=80')"
+        },
+        switchgrass: {
+            name: "Switch Grass",
+            sci: "Panicum virgatum",
+            tag: "Prairie Grass",
+            researcher: "Albert",
+            desc: "Welcome to the Switch Grass station! A cornerstone of native prairie ecosystems, Switch Grass is celebrated for its airy, cloud-like seed heads and brilliant red-gold autumn colour. Its tall, upright form creates a sense of enclosure and privacy within the garden, which research in environmental psychology links to feelings of safety and calm. It is also incredibly resilient, symbolising strength and adaptability.",
+            link: "https://canva.link/hvujsmm6h1uqzi5",
+            bgImage: "url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1920&q=80')"
         }
     };
 
@@ -624,7 +662,7 @@
     function buildCard(key) {
         const p = database[key];
         return `
-            <div class="card" data-key="${key}">
+            <div class="card">
                 <span class="plant-tag">${p.tag}</span>
                 <h3>${p.name}</h3>
                 <p style="color:#555; font-size:14px; margin-bottom:4px;"><em>${p.sci}</em></p>
@@ -660,59 +698,10 @@
         const fullGrid = document.getElementById('full-grid');
         allKeys.forEach(key => { fullGrid.innerHTML += buildCard(key); });
 
-        // Add filter functionality to the Full Directory View Search bar
-        const dirSearch = document.getElementById('directory-search');
-        dirSearch.addEventListener('input', function(e) {
-            const query = e.target.value.toLowerCase();
-            fullGrid.innerHTML = '';
-            allKeys.forEach(key => {
-                const plant = database[key];
-                if(plant.name.toLowerCase().includes(query) || plant.researcher.toLowerCase().includes(query)) {
-                    fullGrid.innerHTML += buildCard(key);
-                }
-            });
-        });
-
     } else {
         // Show homepage with first 3 plants
         const previewGrid = document.getElementById('preview-grid');
         allKeys.slice(0, 3).forEach(key => { previewGrid.innerHTML += buildCard(key); });
-
-        // Add dynamic engine filter to Homepage Search Bar
-        const homeSearch = document.getElementById('garden-search');
-        const searchResultsSection = document.getElementById('search-results-section');
-        const searchGrid = document.getElementById('search-grid');
-        const previewSection = document.getElementById('plants-preview-section');
-
-        homeSearch.addEventListener('input', function(e) {
-            const query = e.target.value.trim().toLowerCase();
-            
-            if(query === '') {
-                // If query is empty, revert to clean homepage configuration
-                searchResultsSection.style.display = 'none';
-                previewSection.style.display = 'block';
-                searchGrid.innerHTML = '';
-            } else {
-                // Hide default preview layout, show custom filter space
-                previewSection.style.display = 'none';
-                searchResultsSection.style.display = 'block';
-                searchGrid.innerHTML = '';
-
-                let counter = 0;
-                allKeys.forEach(key => {
-                    const plant = database[key];
-                    // Searches both Plant Common Name and Student Researcher Name properties
-                    if (plant.name.toLowerCase().includes(query) || plant.researcher.toLowerCase().includes(query)) {
-                        searchGrid.innerHTML += buildCard(key);
-                        counter++;
-                    }
-                });
-
-                if (counter === 0) {
-                    searchGrid.innerHTML = `<p style="grid-column: 1/-1; color: #666; font-style: italic;">No plants or student matches found for "${e.target.value}".</p>`;
-                }
-            }
-        });
     }
 </script>
 </body>
