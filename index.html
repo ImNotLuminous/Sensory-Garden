@@ -83,8 +83,30 @@
         .hero p {
             font-size: 19px;
             max-width: 760px;
-            margin: 0 auto;
+            margin: 0 auto 25px auto;
             opacity: 0.92;
+        }
+
+        /* Search Bar Styles */
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            outline: none;
+            transition: box-shadow 0.2s;
+        }
+
+        .search-input:focus {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
         }
 
         .container {
@@ -335,7 +357,6 @@
 </head>
 <body>
 
-<!-- ========== MAIN HUB VIEW ========== -->
 <div id="main-hub-view">
     <header>
         <div class="nav-container">
@@ -350,23 +371,30 @@
     <section class="hero">
         <h1>Sensory Garden Scanner Hub</h1>
         <p>Explore healthcare research and mental health applications compiled by our student cohort.</p>
+        
+        <div class="search-container">
+            <input type="text" id="garden-search" class="search-input" placeholder="Search plant name or student name...">
+        </div>
     </section>
 
     <div class="container">
 
-        <!-- PLANT DIRECTORY (preview — 3 cards) -->
-        <section id="plants">
+        <section id="search-results-section" style="display: none;">
+            <h2>Search Results</h2>
+            <div class="grid" id="search-grid">
+                </div>
+        </section>
+
+        <section id="plants-preview-section">
             <h2>Garden Plant Directory</h2>
             <p style="margin-bottom: 24px; color: #555;">Select a plant to view its background summary and full student design research.</p>
             <div class="grid" id="preview-grid">
-                <!-- Filled by JS -->
-            </div>
+                </div>
             <div class="see-more-wrap">
                 <a href="?view=all-plants" class="btn-see-more">See All Plants →</a>
             </div>
         </section>
 
-        <!-- ABOUT -->
         <section id="about">
             <h2>About Our Sensory Garden</h2>
             <div class="about-card">
@@ -377,7 +405,6 @@
             </div>
         </section>
 
-        <!-- CREDITS -->
         <section id="credits">
             <h2>Credits</h2>
             <div class="credits-grid">
@@ -439,11 +466,13 @@
     </div>
 </div>
 
-<!-- ========== FULL DIRECTORY VIEW ========== -->
 <div id="full-directory-view">
     <header>
         <div class="nav-container">
             <a href="?" class="logo">🌿 Back to Hub Home</a>
+            <div class="search-container" style="max-width: 350px;">
+                <input type="text" id="directory-search" class="search-input" style="padding: 10px 18px; font-size: 14px;" placeholder="Search this directory...">
+            </div>
         </div>
     </header>
     <div class="container">
@@ -451,13 +480,11 @@
             <h2>Full Plant Directory</h2>
             <p style="margin-bottom: 24px; color: #555;">All student plant profiles for the Sensory Garden.</p>
             <div class="grid" id="full-grid">
-                <!-- Filled by JS -->
-            </div>
+                </div>
         </section>
     </div>
 </div>
 
-<!-- ========== PLANT PROFILE VIEW ========== -->
 <div id="plant-profile-view" style="display: none;">
     <header style="background: rgba(255,255,255,0.96);">
         <div class="nav-container">
@@ -597,7 +624,7 @@
     function buildCard(key) {
         const p = database[key];
         return `
-            <div class="card">
+            <div class="card" data-key="${key}">
                 <span class="plant-tag">${p.tag}</span>
                 <h3>${p.name}</h3>
                 <p style="color:#555; font-size:14px; margin-bottom:4px;"><em>${p.sci}</em></p>
@@ -633,10 +660,59 @@
         const fullGrid = document.getElementById('full-grid');
         allKeys.forEach(key => { fullGrid.innerHTML += buildCard(key); });
 
+        // Add filter functionality to the Full Directory View Search bar
+        const dirSearch = document.getElementById('directory-search');
+        dirSearch.addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            fullGrid.innerHTML = '';
+            allKeys.forEach(key => {
+                const plant = database[key];
+                if(plant.name.toLowerCase().includes(query) || plant.researcher.toLowerCase().includes(query)) {
+                    fullGrid.innerHTML += buildCard(key);
+                }
+            });
+        });
+
     } else {
         // Show homepage with first 3 plants
         const previewGrid = document.getElementById('preview-grid');
         allKeys.slice(0, 3).forEach(key => { previewGrid.innerHTML += buildCard(key); });
+
+        // Add dynamic engine filter to Homepage Search Bar
+        const homeSearch = document.getElementById('garden-search');
+        const searchResultsSection = document.getElementById('search-results-section');
+        const searchGrid = document.getElementById('search-grid');
+        const previewSection = document.getElementById('plants-preview-section');
+
+        homeSearch.addEventListener('input', function(e) {
+            const query = e.target.value.trim().toLowerCase();
+            
+            if(query === '') {
+                // If query is empty, revert to clean homepage configuration
+                searchResultsSection.style.display = 'none';
+                previewSection.style.display = 'block';
+                searchGrid.innerHTML = '';
+            } else {
+                // Hide default preview layout, show custom filter space
+                previewSection.style.display = 'none';
+                searchResultsSection.style.display = 'block';
+                searchGrid.innerHTML = '';
+
+                let counter = 0;
+                allKeys.forEach(key => {
+                    const plant = database[key];
+                    // Searches both Plant Common Name and Student Researcher Name properties
+                    if (plant.name.toLowerCase().includes(query) || plant.researcher.toLowerCase().includes(query)) {
+                        searchGrid.innerHTML += buildCard(key);
+                        counter++;
+                    }
+                });
+
+                if (counter === 0) {
+                    searchGrid.innerHTML = `<p style="grid-column: 1/-1; color: #666; font-style: italic;">No plants or student matches found for "${e.target.value}".</p>`;
+                }
+            }
+        });
     }
 </script>
 </body>
